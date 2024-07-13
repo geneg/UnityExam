@@ -20,11 +20,11 @@ namespace Features.Game
 			_unityHelper.StartCoroutine(Dummy());
 		}
 		
-		public void Reset()
+		public void Clear()
 		{
-			Debug.Log("Reset flight");
+			
 		}
-		
+
 		private IEnumerator Dummy()
 		{
 			yield return new WaitForSeconds(3);

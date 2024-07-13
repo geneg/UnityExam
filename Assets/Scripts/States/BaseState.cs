@@ -1,6 +1,7 @@
 
 using Common;
 using Common.Services;
+using Features.Lobby.Events;
 
 namespace States
 {
@@ -8,16 +9,32 @@ namespace States
 	{
 		protected readonly StateMachine StateMachine;
 		protected readonly LoaderService LoaderService;
+		protected readonly ConfigService ConfigService;
 		protected readonly AppConfig AppConfig;
 		
 		protected BaseState(StateMachine stateMachine, ServiceResolver serviceResolver)
 		{
 			StateMachine = stateMachine;
 			LoaderService = serviceResolver.Get<LoaderService>();
-			AppConfig = serviceResolver.Get<ConfigService>().GetConfig<AppConfig>();
+			ConfigService = serviceResolver.Get<ConfigService>();
+			AppConfig = ConfigService.GetConfig<AppConfig>();
+		}
+
+		public virtual void OnExitState()
+		{
+			EventBroadcaster.Remove<ViewLoadedEvent>(OnViewLoadedHandler);
 		}
 		
-		public abstract void OnExitState();
-		public abstract void OnEnterState();
+		public virtual void OnEnterState()
+		{
+			EventBroadcaster.Add<ViewLoadedEvent>(OnViewLoadedHandler);
+		}
+		
+		private void OnViewLoadedHandler(ViewLoadedEvent e)
+		{
+			OnViewSet(e.View);
+		}
+
+		protected abstract void OnViewSet(BaseView view);
 	}
 }

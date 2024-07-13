@@ -18,7 +18,7 @@ public class AppStart : EntryPoint
         
         _stateMachine.AddState<LobbyState>();
         _stateMachine.AddState<GameState>();
-        _stateMachine.AddState<GameResultState>();
+        _stateMachine.AddState<ResultState>();
     }
     
     protected override void OnStart()

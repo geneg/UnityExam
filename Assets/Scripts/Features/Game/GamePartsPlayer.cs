@@ -23,6 +23,11 @@ namespace Features.Game
 
 		private void PlayNextPart()
 		{
+			if (_currentPart != null)
+			{
+				_currentPart.OnPartEnded -= OnPartEndHandler;
+			}
+			
 			if (_currentPartIndex >= _parts.Count)
 			{
 				OnSequenceEnd?.Invoke();
@@ -35,19 +40,15 @@ namespace Features.Game
 			_currentPartIndex++;
 		}
 		
-		public void Reset()
+		public void Clear()
 		{
-			if (_currentPart != null)
-			{
-				_currentPart.OnPartEnded -= OnPartEndHandler;
-			}
-
 			_currentPartIndex = 0;
-
-			foreach (IGamePart part in _parts)
+			foreach (IGamePart gamePart in _parts)
 			{
-				part.Reset();
+				gamePart.Clear();
 			}
+
+			_parts.Clear();
 		}
 		
 		private void OnPartEndHandler()
@@ -60,6 +61,6 @@ namespace Features.Game
 	{
 		event Action OnPartEnded;
 		void Play();
-		void Reset();
+		void Clear();
 	}
 }

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Features.Result
 {
-	public class ResultView : MonoBehaviour
+	public class ResultView : BaseView
 	{
 		[SerializeField] private Button _returnButton;
 		[SerializeField] private Button _playButton;

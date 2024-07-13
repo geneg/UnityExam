@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Features.Game
 {
-	public class GameView : MonoBehaviour
+	public class GameView : BaseView
 	{
 		
 	}

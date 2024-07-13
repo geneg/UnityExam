@@ -5,16 +5,24 @@ using Features.Result;
 
 namespace States
 {
-	public class GameResultState : BaseState
+	public class ResultState : BaseState
 	{
 		private ResultView _resultView;
 
-		public GameResultState(StateMachine stateMachine, ServiceResolver serviceResolver) : base(stateMachine, serviceResolver) { }
+		public ResultState(StateMachine stateMachine, ServiceResolver serviceResolver) : base(stateMachine, serviceResolver) { }
 		
 		public override void OnEnterState()
 		{
-			LoaderService.OnLoadComplete += OnLoadCompleteHandler;
+			base.OnEnterState();
 			LoaderService.LoadScene(AppConfig.GetSceneName(SceneKey.ResultsScene));
+		}
+		
+		protected override void OnViewSet(BaseView view)
+		{
+			_resultView = view as ResultView;
+			
+			_resultView.OnPlay += OnPlayHandler;
+			_resultView.OnReturn += OnReturnHandler;
 		}
 		
 		private void OnPlayHandler()
@@ -29,22 +37,10 @@ namespace States
 		
 		public override void OnExitState()
 		{
+			base.OnExitState();
 			
 			_resultView.OnPlay -= OnPlayHandler;
 			_resultView.OnReturn -= OnReturnHandler;
-		}
-		
-		private void OnLoadCompleteHandler()
-		{
-			LoaderService.OnLoadComplete -= OnLoadCompleteHandler;
-			
-			if (!StateMachine.UnityHelper.TryFindObjectOfType(out _resultView))
-			{
-				throw new System.Exception("ResultView not found.");
-			}
-			
-			_resultView.OnPlay += OnPlayHandler;
-			_resultView.OnReturn += OnReturnHandler;
 		}
 	}
 }

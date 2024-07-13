@@ -7,11 +7,6 @@ namespace Common
 	{
 		private readonly Dictionary<Type, IService> _services = new Dictionary<Type, IService>();
 		
-		public ServiceResolver()
-		{
-			
-		}
-		
 		public void Register<T>(T service) where T : IService
 		{
 			if (!_services.TryAdd(typeof(T), service))

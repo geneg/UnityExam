@@ -21,6 +21,11 @@ namespace Features.Game
 			_unityHelper.StartCoroutine(Dummy());
 		}
 		
+		public void Clear()
+		{
+			
+		}
+
 		public void Reset()
 		{
 			Debug.Log("reset ground");

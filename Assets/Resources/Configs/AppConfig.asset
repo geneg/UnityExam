@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9289fc8d653141ca82ece607f8e8edb7, type: 3}
   m_Name: AppConfig
   m_EditorClassIdentifier: 
-  sceneConfigs: []
+  sceneConfigs:
+  - key: 0
+    name: Scenes/Lobby
+  - key: 1
+    name: Scenes/Game
+  - key: 2
+    name: Scenes/Result

@@ -2,6 +2,8 @@ using Common;
 using Common.Services;
 using DefaultNamespace;
 using Features.Lobby;
+using Features.Lobby.Events;
+using UnityEngine;
 
 namespace States
 {
@@ -12,22 +14,15 @@ namespace States
 		
 		public override void OnEnterState()
 		{
-			LoaderService.OnLoadComplete += OnLoadCompleteHandler;
+			base.OnEnterState();
 			LoaderService.LoadScene(AppConfig.GetSceneName(SceneKey.LobbyScene));
 		}
-		
-		private void OnLoadCompleteHandler()
+		protected override void OnViewSet(BaseView view)
 		{
-			LoaderService.OnLoadComplete -= OnLoadCompleteHandler;
-			
-			if (!StateMachine.UnityHelper.TryFindObjectOfType(out _lobbyView))
-			{
-				throw new System.Exception("LobbyView not found.");
-			}
-			
+			_lobbyView = view as LobbyView;
 			_lobbyView.OnPlay += OnPlayHandler;
 		}
-
+		
 		private void OnPlayHandler()
 		{
 			StateMachine.ChangeState<GameState>();
@@ -35,6 +30,7 @@ namespace States
 		
 		public override void OnExitState()
 		{
+			base.OnExitState();
 			_lobbyView.OnPlay -= OnPlayHandler;
 		}
 		

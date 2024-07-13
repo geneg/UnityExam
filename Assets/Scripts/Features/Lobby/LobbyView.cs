@@ -1,10 +1,13 @@
 using System;
+using Common;
+using Features.Lobby.Events;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace Features.Lobby
 {
-	public class LobbyView : MonoBehaviour
+	public class LobbyView : BaseView
 	{
 		[SerializeField]
 		private Button _playButton;
