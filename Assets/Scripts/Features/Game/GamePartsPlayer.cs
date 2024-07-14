@@ -13,6 +13,7 @@ namespace Features.Game
 		
 		public void AddGamePart(IGamePart gamePart)
 		{
+			gamePart.Stop();
 			_parts.Add(gamePart);
 		}
 
@@ -25,6 +26,7 @@ namespace Features.Game
 		{
 			if (_currentPart != null)
 			{
+				_currentPart.Stop();
 				_currentPart.OnPartEnded -= OnPartEndHandler;
 			}
 			
@@ -61,6 +63,7 @@ namespace Features.Game
 	{
 		event Action OnPartEnded;
 		void Play();
+		void Stop();
 		void Clear();
 	}
 }

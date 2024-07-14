@@ -23,6 +23,7 @@ namespace Common.Utils
 		{
 			if (_cameras.ContainsKey(key))
 			{
+				_cameras[key].Priority = InactivePriority;
 				_cameras.Remove(key);
 			}
 		}

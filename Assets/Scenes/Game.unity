@@ -173,9 +173,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.2
-  far clip plane: 500
-  field of view: 40
+  near clip plane: 0.1
+  far clip plane: 400
+  field of view: 20.62
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -201,8 +201,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9982968}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 655.81635, y: 72.175, z: 426.05707}
+  m_LocalRotation: {x: 0.11079945, y: 0, z: 0, w: 0.9938428}
+  m_LocalPosition: {x: 750, y: 202.65628, z: 417.32504}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -676,6 +676,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1040958046}
   - component: {fileID: 1040958047}
+  - component: {fileID: 1040958048}
   m_Layer: 0
   m_Name: HelicopterVirtualCamera
   m_TagString: Untagged
@@ -738,6 +739,22 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1561772739}
+--- !u!114 &1040958048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040958045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7194dc27b9df64c8beca7482ee8e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerIndex: -1
+  AutoEnableInputs: 1
+  XYAxis: {fileID: -5630151704836100654, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  ZAxis: {fileID: 0}
 --- !u!1 &1082109791
 GameObject:
   m_ObjectHideFlags: 3
@@ -937,7 +954,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1376249399
 Transform:
   m_ObjectHideFlags: 0
@@ -967,6 +984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e68949b85b68421484d23092ca6913ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _character: {fileID: 6982812147506389444}
 --- !u!1 &1407877944
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,8 +1010,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1407877944}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11082348, y: -0, z: -0, w: 0.9938401}
-  m_LocalPosition: {x: 248, y: 73.45656, z: -50.674896}
+  m_LocalRotation: {x: 0.11079945, y: -0, z: -0, w: 0.9938428}
+  m_LocalPosition: {x: 248, y: 202.65628, z: -50.674957}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1327,7 +1345,7 @@ Transform:
   m_GameObject: {fileID: 1906263733}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.54, y: 0, z: 63.14}
+  m_LocalPosition: {x: 1.54, y: 150, z: 63.14}
   m_LocalScale: {x: 600, y: 300, z: 600}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1348,7 +1366,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2688,9 +2706,9 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 20
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
+  m_LookAt: {fileID: 8338988565448808543}
   m_Follow: {fileID: 8338988565448808543}
   m_Lens:
     FieldOfView: 40
@@ -4014,6 +4032,7 @@ GameObject:
   - component: {fileID: 3893294199178230713}
   - component: {fileID: 6982812147506389443}
   - component: {fileID: 4416926082702975241}
+  - component: {fileID: 6982812147506389444}
   m_Layer: 8
   m_Name: PlayerArmature
   m_TagString: Player
@@ -5367,6 +5386,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6982812147506389444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416926082702975235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93485147cead4c24b0949072a563fee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 2070925442072920913}
 --- !u!4 &6983258930737944858
 Transform:
   m_ObjectHideFlags: 0
@@ -6174,7 +6206,7 @@ Transform:
   m_GameObject: {fileID: 9136937826517487295}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 248, y: 70.8, z: -45}
+  m_LocalPosition: {x: 248, y: 200, z: -45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6604,7 +6636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &9136937826517487296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6660,7 +6692,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

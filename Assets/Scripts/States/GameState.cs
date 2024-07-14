@@ -37,8 +37,9 @@ namespace States
 			FlightPartView flightPartView= gameView.GetPart<FlightPartView>();
 			GroundPartView groundPartView= gameView.GetPart<GroundPartView>();
 			
-			_gamePartsPlayer.AddGamePart(new FlightController(flightPartView));
-			_gamePartsPlayer.AddGamePart(new GroundController(groundPartView));
+			var sharedData = new SharedDataModel();
+			_gamePartsPlayer.AddGamePart(new FlightController(flightPartView, sharedData));
+			_gamePartsPlayer.AddGamePart(new GroundController(groundPartView, sharedData));
 			
 			_gamePartsPlayer.StartPlay();
 		}

@@ -2,19 +2,18 @@ using System;
 using Cinemachine;
 using UnityEngine;
 
-namespace Features.Game.FlightPart.Character
+namespace Features.Game.GroundPart.Character
 {
 	public class CharacterView : MonoBehaviour
 	{
 		public CinemachineVirtualCamera Camera => _camera;
 		[SerializeField] private CinemachineVirtualCamera _camera;
 
-		public event Action<Collision> OnCollide;
+		public event Action<Collider> OnCollide;
 
-		private void OnCollisionEnter(Collision other)
+		private void OnTriggerEnter(Collider other)
 		{
 			OnCollide?.Invoke(other);
 		}
-		
 	}
 }

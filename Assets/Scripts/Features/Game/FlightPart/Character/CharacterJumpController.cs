@@ -8,8 +8,8 @@ namespace Features.Game.FlightPart.Character
 {
 	public class CharacterJumpController
 	{
-		private CharacterView _characterView;
-		public event Action<Collider> OnCollide;
+		private readonly CharacterView _characterView;
+		public event Action<Collision> OnCollide;
 		
 		public CharacterJumpController(CharacterView characterView)
 		{
@@ -17,7 +17,9 @@ namespace Features.Game.FlightPart.Character
 			_characterView.OnCollide += OnCollideHandler;
 		}
 		
-		private void OnCollideHandler(Collider other)
+		
+		
+		private void OnCollideHandler(Collision other)
 		{
 			OnCollide?.Invoke(other);
 		}
