@@ -17,8 +17,6 @@ namespace Features.Game.FlightPart.Character
 			_characterView.OnCollide += OnCollideHandler;
 		}
 		
-		
-		
 		private void OnCollideHandler(Collision other)
 		{
 			OnCollide?.Invoke(other);
