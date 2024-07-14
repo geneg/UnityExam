@@ -1,7 +1,8 @@
+using System;
 using Common;
-using Common.Services;
-using DefaultNamespace;
 using Features.Game;
+using Features.Game.FlightPart;
+using Features.Game.GroundPart;
 
 namespace States
 {
@@ -19,16 +20,26 @@ namespace States
 			base.OnEnterState();
 			//get next level data
 			
-			_gamePartsPlayer.AddGamePart(new FlightController(StateMachine.UnityHelper));
-			_gamePartsPlayer.AddGamePart(new GroundController(StateMachine.UnityHelper));
-			
 			_gamePartsPlayer.OnSequenceEnd += OnSequenceEndHandler;
 			
 			LoaderService.LoadScene(AppConfig.GetSceneName(SceneKey.GameScene));
 		}
 		
-		protected override void OnViewSet(BaseView view)
+		protected override void OnStateReady(BaseView view)
 		{
+			GameView gameView = view as GameView;
+
+			if (gameView == null)
+			{
+				throw new InvalidOperationException("No Game State View Found");
+			}
+			
+			FlightPartView flightPartView= gameView.GetPart<FlightPartView>();
+			GroundPartView groundPartView= gameView.GetPart<GroundPartView>();
+			
+			_gamePartsPlayer.AddGamePart(new FlightController(flightPartView));
+			_gamePartsPlayer.AddGamePart(new GroundController(groundPartView));
+			
 			_gamePartsPlayer.StartPlay();
 		}
 

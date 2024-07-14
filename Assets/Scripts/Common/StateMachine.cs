@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using UnityEngine;
 
 namespace Common
 {
@@ -10,9 +11,9 @@ namespace Common
 		private readonly ServiceResolver _serviceResolver;
 		private IState _currentState;
 
-		public UnityHelper UnityHelper { get; }
+		public MonoBehaviour UnityHelper { get; }
 
-		public StateMachine(ServiceResolver serviceResolver, UnityHelper unityHelper)
+		public StateMachine(ServiceResolver serviceResolver, MonoBehaviour unityHelper)
 		{
 			_serviceResolver = serviceResolver;
 			UnityHelper = unityHelper;

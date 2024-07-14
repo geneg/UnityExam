@@ -1,9 +1,5 @@
 using Common;
-using Common.Services;
-using DefaultNamespace;
 using Features.Lobby;
-using Features.Lobby.Events;
-using UnityEngine;
 
 namespace States
 {
@@ -17,7 +13,7 @@ namespace States
 			base.OnEnterState();
 			LoaderService.LoadScene(AppConfig.GetSceneName(SceneKey.LobbyScene));
 		}
-		protected override void OnViewSet(BaseView view)
+		protected override void OnStateReady(BaseView view)
 		{
 			_lobbyView = view as LobbyView;
 			_lobbyView.OnPlay += OnPlayHandler;

@@ -5,16 +5,12 @@ namespace Common
 	/// <summary>
 	/// Single entry point for whole app.
 	/// </summary>
-	[RequireComponent(typeof(UnityHelper))]
 	public abstract class EntryPoint : MonoBehaviour
 	{
-		protected UnityHelper UnityHelper => _unityHelper;
-		private UnityHelper _unityHelper;
+		protected MonoBehaviour UnityHelper => this;
 		
 		private void Awake()
 		{
-			_unityHelper = FindObjectOfType<UnityHelper>();
-			
 			OnAwake();
 			DontDestroyOnLoad(this.gameObject);
 		}

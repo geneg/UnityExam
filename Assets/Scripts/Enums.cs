@@ -1,9 +1,6 @@
-namespace DefaultNamespace
+public enum SceneKey
 {
-	public enum SceneKey
-	{
-		LobbyScene,
-		GameScene,
-		ResultsScene,
-	}
+	LobbyScene,
+	GameScene,
+	ResultsScene,
 }

@@ -1,6 +1,4 @@
 using Common;
-using Common.Services;
-using DefaultNamespace;
 using Features.Result;
 
 namespace States
@@ -17,7 +15,7 @@ namespace States
 			LoaderService.LoadScene(AppConfig.GetSceneName(SceneKey.ResultsScene));
 		}
 		
-		protected override void OnViewSet(BaseView view)
+		protected override void OnStateReady(BaseView view)
 		{
 			_resultView = view as ResultView;
 			

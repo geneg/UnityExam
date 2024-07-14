@@ -1,4 +1,3 @@
-using System;
 using Common;
 using Features.Lobby.Events;
 using UnityEngine;

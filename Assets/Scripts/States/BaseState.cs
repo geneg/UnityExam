@@ -22,19 +22,19 @@ namespace States
 
 		public virtual void OnExitState()
 		{
-			EventBroadcaster.Remove<ViewLoadedEvent>(OnViewLoadedHandler);
+			EventBroadcaster.Remove<ViewLoadedEvent>(OnLoadedHandler);
 		}
 		
 		public virtual void OnEnterState()
 		{
-			EventBroadcaster.Add<ViewLoadedEvent>(OnViewLoadedHandler);
+			EventBroadcaster.Add<ViewLoadedEvent>(OnLoadedHandler);
 		}
 		
-		private void OnViewLoadedHandler(ViewLoadedEvent e)
+		private void OnLoadedHandler(ViewLoadedEvent e)
 		{
-			OnViewSet(e.View);
+			OnStateReady(e.View);
 		}
 
-		protected abstract void OnViewSet(BaseView view);
+		protected abstract void OnStateReady(BaseView view);
 	}
 }

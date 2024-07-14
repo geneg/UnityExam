@@ -1,9 +1,6 @@
 using System;
-using Common;
-using Features.Lobby.Events;
 using UnityEngine;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
 namespace Features.Lobby
 {

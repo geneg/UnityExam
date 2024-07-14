@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,11 +6,9 @@ namespace Common.Services
 {
 	public class LoaderService : IService
 	{
-		private readonly UnityHelper _unityHelper;
+		private readonly MonoBehaviour _unityHelper;
 		
-		public event Action OnLoadComplete;
-		
-		public LoaderService(UnityHelper unityHelper)
+		public LoaderService(MonoBehaviour unityHelper)
 		{
 			_unityHelper = unityHelper;
 		}
@@ -29,8 +26,6 @@ namespace Common.Services
 			{
 				yield return null;
 			}
-			
-			OnLoadComplete?.Invoke();
 		}
 	}
 }
