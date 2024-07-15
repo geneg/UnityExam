@@ -31,8 +31,22 @@ namespace Features.Game.GroundPart
 			
 			_cameraDirector = new CameraDirector<GroundPartCameras>();
 			_cameraDirector.AddCamera(GroundPartCameras.Character, _view.Character.Camera);
+
+			EventBroadcaster.Add<ItemCollectedEvent>(OnItemCollected);
+			_view.UIView.SetItemsText($"{0} of {levelConfig.itemsCount}");
 		}
 		
+		private void OnItemCollected(ItemCollectedEvent e)
+		{
+			_view.UIView.SetItemsText($"{e.CurrentCount} of {e.Total}");
+
+			if (e.CurrentCount == e.Total)
+			{
+				_timer.StopTimer();
+				OnPartEnded?.Invoke();
+			}
+		}
+
 		private void OnTimerEnded()
 		{
 			OnPartEnded?.Invoke();
@@ -55,22 +69,14 @@ namespace Features.Game.GroundPart
 			Transform transform = _view.Character.transform;
 			
 			_view.Character.CharacterController.enabled = false;
-			
-			Vector3 worldPosition = _view.Character.transform.TransformPoint(_sharedDataModel.CharacterPosition);
-			float terrainHeight = Terrain.activeTerrain.SampleHeight(worldPosition) + 1;
-			worldPosition = new Vector3(worldPosition.x, terrainHeight, worldPosition.z);
-			
-			Vector3 localPositionWithHeight = _view.Character.transform.InverseTransformPoint(worldPosition);
-			
-			transform.localPosition = localPositionWithHeight;
-			transform.rotation = _sharedDataModel.CharacterRotation;
-			
+			transform.SetPositionAndRotation(_sharedDataModel.CharacterPosition + new Vector3(0,1f,0), transform.rotation = _sharedDataModel.CharacterRotation);
 			_view.Character.CharacterController.enabled = true;
 			_cameraDirector.Show(GroundPartCameras.Character);
 
 			_timer.StartCountdownTimer(_levelConfig.duration);
 				
 			EventBroadcaster.Broadcast(new InitiateCollectableItemsEvent(_view.CollectablesContainer));
+
 			
 		}
 		

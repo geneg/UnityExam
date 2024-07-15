@@ -11,7 +11,7 @@ namespace Features.Items
 {
 	public class CollectableItemsController
 	{
-		private const int RandomAreaRadius = 50;
+		private const int RandomAreaRadius = 10;
 
 		public event Action OnItemCollected;
 		
@@ -19,12 +19,14 @@ namespace Features.Items
 		private readonly LevelConfig _levelConfig;
 
 		private List<ICollectableItem> _items = new List<ICollectableItem>();
+		private readonly PlayerDataModel _playerData;
 		
-		public CollectableItemsController(CollectableItemsConfig itemsConfig, LevelConfig levelConfig)
+		public CollectableItemsController(CollectableItemsConfig itemsConfig, LevelConfig levelConfig, PlayerDataModel playerData)
 		{
 			_itemsConfig = itemsConfig;
 			_levelConfig = levelConfig;
-			
+
+			_playerData = playerData;
 			EventBroadcaster.Add<InitiateCollectableItemsEvent>(OnInitiateCollectableItems);
 		}
 		
@@ -44,7 +46,9 @@ namespace Features.Items
 		
 		private void OnItemCollectedHandler(ICollectableItem item)
 		{
-			EventBroadcaster.Broadcast(new ItemCollectedEvent());
+			_playerData.SetItemCollected();	
+			
+			EventBroadcaster.Broadcast(new ItemCollectedEvent(_playerData.CollectedItems, _levelConfig.itemsCount));
 			DisposeSingleItem(item);
 		}
 

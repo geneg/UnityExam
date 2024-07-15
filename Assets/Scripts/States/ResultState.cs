@@ -1,5 +1,7 @@
 using Common;
+using Data;
 using Features.Result;
+using UnityEngine;
 
 namespace States
 {
@@ -12,6 +14,16 @@ namespace States
 		public override void OnEnterState()
 		{
 			base.OnEnterState();
+			
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = false;
+			
+			PlayerDataModel playerData = DataService.Get<PlayerDataModel>();
+			LevelsConfig levelsConfig = ConfigService.GetConfig<LevelsConfig>();
+			
+			if (playerData.CurrentLevel < levelsConfig.GetLevelsCount() - 1)
+				playerData.SetNextLevel();
+			
 			LoaderService.LoadScene(AppConfig.GetSceneName(SceneKey.ResultsScene));
 		}
 		

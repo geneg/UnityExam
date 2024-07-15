@@ -8,6 +8,11 @@ namespace Data
 	public class LevelsConfig : ScriptableObject
 	{
 		[SerializeField] private List<LevelConfig> levelConfig;
+
+		public int GetLevelsCount()
+		{
+			return levelConfig.Count;
+		}
 		
 		public LevelConfig GetLevelConfig(int idx)
 		{
