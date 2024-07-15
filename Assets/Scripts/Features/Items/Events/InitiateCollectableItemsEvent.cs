@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Features.Items
+namespace Features.Items.Events
 {
 	public class InitiateCollectableItemsEvent
 	{

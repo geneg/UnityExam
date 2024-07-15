@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
-using Cinemachine;
 using Common;
+using Common.Services;
 using Common.Utils;
+using Data;
 using Features.Game.GroundPart.Character;
-using Features.Items;
+using Features.Items.Events;
 using UnityEngine;
 
 namespace Features.Game.GroundPart
@@ -15,17 +16,33 @@ namespace Features.Game.GroundPart
 		private readonly CameraDirector<GroundPartCameras> _cameraDirector;
 		private SharedDataModel _sharedDataModel;
 		private readonly CharacterGroundController _characterGroundController;
+		private readonly AsyncTimer _timer;
+		private readonly LevelConfig _levelConfig;
 
-		public GroundController(GroundPartView groundPartView, SharedDataModel sharedDataModel)
+		public GroundController(GroundPartView groundPartView, SharedDataModel sharedDataModel, LevelConfig levelConfig)
 		{
 			_view = groundPartView;
 			_sharedDataModel = sharedDataModel;
-
+			_levelConfig = levelConfig;
 			_characterGroundController = new CharacterGroundController(_view.Character);
+			_timer = new AsyncTimer();
+			_timer.OnTimerEnded += OnTimerEnded;
+			_timer.OnSecondElapsed += OnTimerUpdate;
 			
 			_cameraDirector = new CameraDirector<GroundPartCameras>();
 			_cameraDirector.AddCamera(GroundPartCameras.Character, _view.Character.Camera);
 		}
+		
+		private void OnTimerEnded()
+		{
+			OnPartEnded?.Invoke();
+		}
+		
+		private void OnTimerUpdate(int seconds)
+		{
+			_view.UIView.SetTimerText(seconds);
+		}
+		
 
 		public event Action OnPartEnded;
 		
@@ -38,12 +55,25 @@ namespace Features.Game.GroundPart
 			Transform transform = _view.Character.transform;
 			
 			_view.Character.CharacterController.enabled = false;
-			transform.SetPositionAndRotation(_sharedDataModel.CharacterPosition + new Vector3(0,0.3f,0), transform.rotation = _sharedDataModel.CharacterRotation);
+			
+			Vector3 worldPosition = _view.Character.transform.TransformPoint(_sharedDataModel.CharacterPosition);
+			float terrainHeight = Terrain.activeTerrain.SampleHeight(worldPosition) + 1;
+			worldPosition = new Vector3(worldPosition.x, terrainHeight, worldPosition.z);
+			
+			Vector3 localPositionWithHeight = _view.Character.transform.InverseTransformPoint(worldPosition);
+			
+			transform.localPosition = localPositionWithHeight;
+			transform.rotation = _sharedDataModel.CharacterRotation;
+			
 			_view.Character.CharacterController.enabled = true;
 			_cameraDirector.Show(GroundPartCameras.Character);
 
+			_timer.StartCountdownTimer(_levelConfig.duration);
+				
 			EventBroadcaster.Broadcast(new InitiateCollectableItemsEvent(_view.CollectablesContainer));
+			
 		}
+		
 		public void Stop()
 		{
 			_view.enabled = false;
@@ -52,18 +82,10 @@ namespace Features.Game.GroundPart
 
 		public void Clear()
 		{
-			
-		}
+			_timer.StopTimer();
+			_timer.OnTimerEnded -= OnTimerEnded;
+			_timer.OnSecondElapsed -= OnTimerUpdate;
 
-		public void Reset()
-		{
-			Debug.Log("reset ground");
-		}
-
-		private IEnumerator Dummy()
-		{
-			yield return new WaitForSeconds(3);
-			OnPartEnded?.Invoke();
 		}
 	}
 	

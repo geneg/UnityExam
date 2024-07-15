@@ -13,16 +13,16 @@ namespace States
 	{
 		private readonly GamePartsPlayer _gamePartsPlayer;
 		private readonly CollectableItemsController _collectableItemsController;
-
+		private LevelConfig _levelConfig;
 		public GameState(StateMachine stateMachine, ServiceResolver serviceResolver) : base(stateMachine, serviceResolver)
 		{
 			PlayerDataModel playerData = DataService.Get<PlayerDataModel>();
-			LevelConfig levelConfig = ConfigService.GetConfig<LevelsConfig>().GetLevelConfig(playerData.CurrentLevel);
+			_levelConfig = ConfigService.GetConfig<LevelsConfig>().GetLevelConfig(playerData.CurrentLevel);
 			
 			_gamePartsPlayer = new GamePartsPlayer();
-			_collectableItemsController = new CollectableItemsController(ConfigService.GetConfig<CollectableItemsConfig>(), levelConfig);
+			_collectableItemsController = new CollectableItemsController(ConfigService.GetConfig<CollectableItemsConfig>(), _levelConfig);
 		}
-		
+
 		public override void OnEnterState()
 		{
 			base.OnEnterState();
@@ -47,7 +47,7 @@ namespace States
 			
 			var sharedData = new SharedDataModel();
 			_gamePartsPlayer.AddGamePart(new FlightController(flightPartView, sharedData));
-			_gamePartsPlayer.AddGamePart(new GroundController(groundPartView, sharedData));
+			_gamePartsPlayer.AddGamePart(new GroundController(groundPartView, sharedData, _levelConfig));
 			
 			_gamePartsPlayer.StartPlay();
 		}
