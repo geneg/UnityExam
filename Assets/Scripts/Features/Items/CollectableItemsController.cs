@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Common;
 using Common.Services;
 using Common.Utils;
 using Data;
+using Features.Items.Events;
 using UnityEngine;
 
 namespace Features.Items
@@ -10,6 +12,8 @@ namespace Features.Items
 	public class CollectableItemsController
 	{
 		private const int RandomAreaRadius = 50;
+
+		public event Action OnItemCollected;
 		
 		private readonly CollectableItemsConfig _itemsConfig;
 		private readonly LevelConfig _levelConfig;
@@ -32,21 +36,21 @@ namespace Features.Items
 			{
 				Vector3 randomPos = RandomUtils.GetRandomPosition(Vector3.zero, RandomAreaRadius);
 				ICollectableItem item = collectableItemsFactory.CreateItem(CollectableItemType.Coin, randomPos);
-				item.OnCollected += OnItemCollected;
+				item.OnCollected += OnItemCollectedHandler;
 				
 				_items.Add(item);
 			}
 		}
 		
-		private void OnItemCollected(ICollectableItem item)
+		private void OnItemCollectedHandler(ICollectableItem item)
 		{
-			//todo: fire event for game to count an item
+			EventBroadcaster.Broadcast(new ItemCollectedEvent());
 			DisposeSingleItem(item);
 		}
 
 		private void DisposeSingleItem(ICollectableItem item)
 		{
-			item.OnCollected -= OnItemCollected;
+			item.OnCollected -= OnItemCollectedHandler;
 			item.Dispose();
 		}
 		

@@ -1,12 +1,11 @@
-﻿using UnityEngine;
-#if ENABLE_INPUT_SYSTEM
+﻿using Starter_Assets.Runtime.InputSystem;
+using UnityEngine;
 using UnityEngine.InputSystem;
-#endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
 
-namespace StarterAssets
+namespace Starter_Assets.Runtime.ThirdPersonController.Scripts
 {
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM

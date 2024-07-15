@@ -1,6 +1,6 @@
 using System;
 using Common;
-using Common.Services;
+
 using Data;
 using Features.Game;
 using Features.Game.FlightPart;
@@ -22,7 +22,7 @@ namespace States
 			_gamePartsPlayer = new GamePartsPlayer();
 			_collectableItemsController = new CollectableItemsController(ConfigService.GetConfig<CollectableItemsConfig>(), levelConfig);
 		}
-		
+
 		public override void OnEnterState()
 		{
 			base.OnEnterState();

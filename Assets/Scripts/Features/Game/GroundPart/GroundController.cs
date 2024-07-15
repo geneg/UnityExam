@@ -1,10 +1,9 @@
 using System;
 using System.Collections;
-using Cinemachine;
 using Common;
 using Common.Utils;
 using Features.Game.GroundPart.Character;
-using Features.Items;
+using Features.Items.Events;
 using UnityEngine;
 
 namespace Features.Game.GroundPart
@@ -15,12 +14,13 @@ namespace Features.Game.GroundPart
 		private readonly CameraDirector<GroundPartCameras> _cameraDirector;
 		private SharedDataModel _sharedDataModel;
 		private readonly CharacterGroundController _characterGroundController;
-
+		
 		public GroundController(GroundPartView groundPartView, SharedDataModel sharedDataModel)
 		{
 			_view = groundPartView;
 			_sharedDataModel = sharedDataModel;
 
+			
 			_characterGroundController = new CharacterGroundController(_view.Character);
 			
 			_cameraDirector = new CameraDirector<GroundPartCameras>();
@@ -43,6 +43,7 @@ namespace Features.Game.GroundPart
 			_cameraDirector.Show(GroundPartCameras.Character);
 
 			EventBroadcaster.Broadcast(new InitiateCollectableItemsEvent(_view.CollectablesContainer));
+			
 		}
 		public void Stop()
 		{
