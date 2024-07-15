@@ -10,6 +10,7 @@ namespace States
 		protected readonly StateMachine StateMachine;
 		protected readonly LoaderService LoaderService;
 		protected readonly ConfigService ConfigService;
+		protected readonly DataService DataService;
 		protected readonly AppConfig AppConfig;
 		
 		protected BaseState(StateMachine stateMachine, ServiceResolver serviceResolver)
@@ -17,6 +18,7 @@ namespace States
 			StateMachine = stateMachine;
 			LoaderService = serviceResolver.Get<LoaderService>();
 			ConfigService = serviceResolver.Get<ConfigService>();
+			DataService = serviceResolver.Get<DataService>();
 			AppConfig = ConfigService.GetConfig<AppConfig>();
 		}
 

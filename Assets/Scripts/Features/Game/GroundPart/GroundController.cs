@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using Cinemachine;
+using Common;
 using Common.Utils;
 using Features.Game.GroundPart.Character;
+using Features.Items;
 using UnityEngine;
 
 namespace Features.Game.GroundPart
@@ -38,8 +40,9 @@ namespace Features.Game.GroundPart
 			_view.Character.CharacterController.enabled = false;
 			transform.SetPositionAndRotation(_sharedDataModel.CharacterPosition + new Vector3(0,0.3f,0), transform.rotation = _sharedDataModel.CharacterRotation);
 			_view.Character.CharacterController.enabled = true;
-			
 			_cameraDirector.Show(GroundPartCameras.Character);
+
+			EventBroadcaster.Broadcast(new InitiateCollectableItemsEvent(_view.CollectablesContainer));
 		}
 		public void Stop()
 		{

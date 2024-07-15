@@ -1,18 +1,26 @@
 using System;
 using Common;
+using Common.Services;
+using Data;
 using Features.Game;
 using Features.Game.FlightPart;
 using Features.Game.GroundPart;
+using Features.Items;
 
 namespace States
 {
 	public class GameState : BaseState
 	{
 		private readonly GamePartsPlayer _gamePartsPlayer;
+		private readonly CollectableItemsController _collectableItemsController;
 
 		public GameState(StateMachine stateMachine, ServiceResolver serviceResolver) : base(stateMachine, serviceResolver)
 		{
+			PlayerDataModel playerData = DataService.Get<PlayerDataModel>();
+			LevelConfig levelConfig = ConfigService.GetConfig<LevelsConfig>().GetLevelConfig(playerData.CurrentLevel);
+			
 			_gamePartsPlayer = new GamePartsPlayer();
+			_collectableItemsController = new CollectableItemsController(ConfigService.GetConfig<CollectableItemsConfig>(), levelConfig);
 		}
 		
 		public override void OnEnterState()

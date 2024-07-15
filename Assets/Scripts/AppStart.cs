@@ -12,6 +12,7 @@ public class AppStart : EntryPoint
         _serviceResolver = new ServiceResolver();
         
         _serviceResolver.Register(new ConfigService());
+        _serviceResolver.Register(new DataService());
         _serviceResolver.Register(new LoaderService(UnityHelper));
         
         _stateMachine = new StateMachine(_serviceResolver, UnityHelper);
