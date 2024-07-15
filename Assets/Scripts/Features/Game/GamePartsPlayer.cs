@@ -44,6 +44,7 @@ namespace Features.Game
 		
 		public void Clear()
 		{
+			_currentPart = null;
 			_currentPartIndex = 0;
 			foreach (IGamePart gamePart in _parts)
 			{

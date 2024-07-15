@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using Common;
+using Common.Services;
 using Common.Utils;
+using Data;
 using Features.Game.GroundPart.Character;
 using Features.Items.Events;
 using UnityEngine;
@@ -14,18 +16,33 @@ namespace Features.Game.GroundPart
 		private readonly CameraDirector<GroundPartCameras> _cameraDirector;
 		private SharedDataModel _sharedDataModel;
 		private readonly CharacterGroundController _characterGroundController;
-		
-		public GroundController(GroundPartView groundPartView, SharedDataModel sharedDataModel)
+		private readonly AsyncTimer _timer;
+		private readonly LevelConfig _levelConfig;
+
+		public GroundController(GroundPartView groundPartView, SharedDataModel sharedDataModel, LevelConfig levelConfig)
 		{
 			_view = groundPartView;
 			_sharedDataModel = sharedDataModel;
-
-			
+			_levelConfig = levelConfig;
 			_characterGroundController = new CharacterGroundController(_view.Character);
+			_timer = new AsyncTimer();
+			_timer.OnTimerEnded += OnTimerEnded;
+			_timer.OnSecondElapsed += OnTimerUpdate;
 			
 			_cameraDirector = new CameraDirector<GroundPartCameras>();
 			_cameraDirector.AddCamera(GroundPartCameras.Character, _view.Character.Camera);
 		}
+		
+		private void OnTimerEnded()
+		{
+			OnPartEnded?.Invoke();
+		}
+		
+		private void OnTimerUpdate(int seconds)
+		{
+			_view.UIView.SetTimerText(seconds);
+		}
+		
 
 		public event Action OnPartEnded;
 		
@@ -42,9 +59,12 @@ namespace Features.Game.GroundPart
 			_view.Character.CharacterController.enabled = true;
 			_cameraDirector.Show(GroundPartCameras.Character);
 
+			_timer.StartCountdownTimer(_levelConfig.duration);
+				
 			EventBroadcaster.Broadcast(new InitiateCollectableItemsEvent(_view.CollectablesContainer));
 			
 		}
+		
 		public void Stop()
 		{
 			_view.enabled = false;
@@ -53,18 +73,10 @@ namespace Features.Game.GroundPart
 
 		public void Clear()
 		{
-			
-		}
+			_timer.StopTimer();
+			_timer.OnTimerEnded -= OnTimerEnded;
+			_timer.OnSecondElapsed -= OnTimerUpdate;
 
-		public void Reset()
-		{
-			Debug.Log("reset ground");
-		}
-
-		private IEnumerator Dummy()
-		{
-			yield return new WaitForSeconds(3);
-			OnPartEnded?.Invoke();
 		}
 	}
 	

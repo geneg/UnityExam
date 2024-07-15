@@ -7,11 +7,10 @@ namespace Features.Game.GroundPart
 	{
 		public CharacterView Character => _character;
 		public GameObject CollectablesContainer => _collectablesContainer;
-		public GroundGameUI GameUI => _gameUI;
-		
+		public UIView UIView => _UIView;
 		[SerializeField] private CharacterView _character;
 		[SerializeField] private GameObject _collectablesContainer;
-		[SerializeField] private GroundGameUI _gameUI;
+		[SerializeField] private UIView _UIView;
 
 	}
 }

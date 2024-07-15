@@ -776,6 +776,7 @@ GameObject:
   - component: {fileID: 268478936}
   - component: {fileID: 268478938}
   - component: {fileID: 268478937}
+  - component: {fileID: 268478939}
   m_Layer: 5
   m_Name: TopPanel
   m_TagString: Untagged
@@ -845,6 +846,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 268478935}
   m_CullTransparentMesh: 1
+--- !u!114 &268478939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268478935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf12a7547c51472cbd4fe868df01c32a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timerText: {fileID: 212493838}
 --- !u!1 &284224055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1722,7 +1736,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1376249399
 Transform:
   m_ObjectHideFlags: 0
@@ -1756,6 +1770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _character: {fileID: 1381155011}
   _collectablesContainer: {fileID: 2556645}
+  _UIView: {fileID: 268478939}
 --- !u!114 &1381155011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6489,7 +6504,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1
+  m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &6983258930747814519
