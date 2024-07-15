@@ -31,8 +31,15 @@ namespace Features.Game.GroundPart
 			
 			_cameraDirector = new CameraDirector<GroundPartCameras>();
 			_cameraDirector.AddCamera(GroundPartCameras.Character, _view.Character.Camera);
+
+			EventBroadcaster.Add<ItemCollectedEvent>(OnItemCollected);
 		}
 		
+		private void OnItemCollected(ItemCollectedEvent e)
+		{
+			_view.UIView.SetItemsText($"{e.CurrentCount} of {e.Total}");
+		}
+
 		private void OnTimerEnded()
 		{
 			OnPartEnded?.Invoke();
@@ -52,18 +59,17 @@ namespace Features.Game.GroundPart
 			_view.gameObject.SetActive(true);
 			
 			//set player position
-			Transform transform = _view.Character.transform;
 			
 			_view.Character.CharacterController.enabled = false;
 			
-			Vector3 worldPosition = _view.Character.transform.TransformPoint(_sharedDataModel.CharacterPosition);
-			float terrainHeight = Terrain.activeTerrain.SampleHeight(worldPosition) + 1;
-			worldPosition = new Vector3(worldPosition.x, terrainHeight, worldPosition.z);
 			
+			Vector3 worldPosition = _view.Character.transform.TransformPoint(_sharedDataModel.CharacterPosition);
+			float terrainHeight = Terrain.activeTerrain.SampleHeight(worldPosition) + 2f;
+			worldPosition = new Vector3(worldPosition.x, terrainHeight, worldPosition.z);
 			Vector3 localPositionWithHeight = _view.Character.transform.InverseTransformPoint(worldPosition);
 			
-			transform.localPosition = localPositionWithHeight;
-			transform.rotation = _sharedDataModel.CharacterRotation;
+			_view.Character.transform.localPosition = localPositionWithHeight;
+			_view.Character.transform.rotation = _sharedDataModel.CharacterRotation;
 			
 			_view.Character.CharacterController.enabled = true;
 			_cameraDirector.Show(GroundPartCameras.Character);

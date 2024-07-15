@@ -20,7 +20,7 @@ namespace States
 			_levelConfig = ConfigService.GetConfig<LevelsConfig>().GetLevelConfig(playerData.CurrentLevel);
 			
 			_gamePartsPlayer = new GamePartsPlayer();
-			_collectableItemsController = new CollectableItemsController(ConfigService.GetConfig<CollectableItemsConfig>(), _levelConfig);
+			_collectableItemsController = new CollectableItemsController(ConfigService.GetConfig<CollectableItemsConfig>(), _levelConfig, playerData);
 		}
 
 		public override void OnEnterState()
