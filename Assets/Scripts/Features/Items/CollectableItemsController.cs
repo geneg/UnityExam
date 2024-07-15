@@ -11,7 +11,7 @@ namespace Features.Items
 {
 	public class CollectableItemsController
 	{
-		private const int RandomAreaRadius = 50;
+		private const int RandomAreaRadius = 10;
 
 		public event Action OnItemCollected;
 		

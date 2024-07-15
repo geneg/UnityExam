@@ -39,6 +39,12 @@ namespace Features.Game.GroundPart
 		private void OnItemCollected(ItemCollectedEvent e)
 		{
 			_view.UIView.SetItemsText($"{e.CurrentCount} of {e.Total}");
+
+			if (e.CurrentCount == e.Total)
+			{
+				_timer.StopTimer();
+				OnPartEnded?.Invoke();
+			}
 		}
 
 		private void OnTimerEnded()

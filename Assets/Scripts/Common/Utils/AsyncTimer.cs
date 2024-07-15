@@ -24,20 +24,28 @@ namespace Common.Utils
 			
 			int remainingTime = seconds;
 
-			while (remainingTime > 0)
+			try
 			{
-				if (token.IsCancellationRequested)
+				while (remainingTime > 0)
 				{
+					if (token.IsCancellationRequested)
+					{
 					
-					return;
-				}
+						return;
+					}
 				
-				OnSecondElapsed?.Invoke(remainingTime);
-				await Task.Delay(1000, token);
-				remainingTime--;
-			}
+					OnSecondElapsed?.Invoke(remainingTime);
+					await Task.Delay(1000, token);
+					remainingTime--;
+				}
 
-			OnTimerEnded?.Invoke();
+				OnTimerEnded?.Invoke();
+			}
+			catch (TaskCanceledException e)
+			{
+				//timer canceled
+			}
+			
 		}
 
 		public void StopTimer()

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelsConfig
   m_EditorClassIdentifier: 
   levelConfig:
-  - duration: 60
-    itemsCount: 15
+  - duration: 90
+    itemsCount: 1
   - duration: 90
     itemsCount: 50

@@ -11,23 +11,23 @@ namespace States
 {
 	public class GameState : BaseState
 	{
-		private readonly GamePartsPlayer _gamePartsPlayer;
-		private readonly CollectableItemsController _collectableItemsController;
+		private  GamePartsPlayer _gamePartsPlayer;
+		private  CollectableItemsController _collectableItemsController;
 		private LevelConfig _levelConfig;
 		public GameState(StateMachine stateMachine, ServiceResolver serviceResolver) : base(stateMachine, serviceResolver)
 		{
-			PlayerDataModel playerData = DataService.Get<PlayerDataModel>();
-			_levelConfig = ConfigService.GetConfig<LevelsConfig>().GetLevelConfig(playerData.CurrentLevel);
-			
-			_gamePartsPlayer = new GamePartsPlayer();
-			_collectableItemsController = new CollectableItemsController(ConfigService.GetConfig<CollectableItemsConfig>(), _levelConfig, playerData);
 		}
 
 		public override void OnEnterState()
 		{
 			base.OnEnterState();
-			//get next level data
 			
+			PlayerDataModel playerData = DataService.Get<PlayerDataModel>();
+			_levelConfig = ConfigService.GetConfig<LevelsConfig>().GetLevelConfig(playerData.CurrentLevel);
+			
+			_gamePartsPlayer = new GamePartsPlayer();
+			_collectableItemsController = new CollectableItemsController(ConfigService.GetConfig<CollectableItemsConfig>(), _levelConfig, playerData);
+
 			_gamePartsPlayer.OnSequenceEnd += OnSequenceEndHandler;
 			
 			LoaderService.LoadScene(AppConfig.GetSceneName(SceneKey.GameScene));
