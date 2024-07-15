@@ -166,6 +166,7 @@ GameObject:
   - component: {fileID: 9982970}
   - component: {fileID: 9982972}
   - component: {fileID: 9982973}
+  - component: {fileID: 9982974}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -317,6 +318,14 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!81 &9982974
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9982968}
+  m_Enabled: 1
 --- !u!1 &66786455
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,7 +1028,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _character: {fileID: 1381155011}
   _collectablesContainer: {fileID: 2556645}
-  _mapCenterPosition: {fileID: 1260787077}
 --- !u!114 &1381155011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4271,6 +4279,7 @@ GameObject:
   - component: {fileID: 135756640619353618}
   - component: {fileID: 4416926082697169506}
   - component: {fileID: 1381155011}
+  - component: {fileID: 6982812147510086319}
   m_Layer: 8
   m_Name: PlayerArmature (1)
   m_TagString: Player
@@ -5598,6 +5607,29 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!136 &6982812147510086319
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416926082697169518}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &6983258930747814519
 Transform:
   m_ObjectHideFlags: 0

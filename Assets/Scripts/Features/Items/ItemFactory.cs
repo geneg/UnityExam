@@ -13,14 +13,14 @@ namespace Features.Items
 			_parent = parent;
 		}
 		
-		public IItem CreateItem(CollectableItemType type, Vector3 position)
+		public ICollectableItem CreateItem(CollectableItemType type, Vector3 position)
 		{
 			GameObject template = _itemsConfig.GetCollectableItem(type);;
 			
 			switch (type)
 			{
 				case CollectableItemType.Coin:
-					return new CoinItem(template, position, _parent);
+					return new CoinCollectableItem(template, position, _parent);
 				default:
 					throw new InvalidOperationException("Invalid Item type");
 			}
